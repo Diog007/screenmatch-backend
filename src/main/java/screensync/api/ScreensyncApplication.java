@@ -3,6 +3,7 @@ package screensync.api;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import screensync.api.model.DadosEpisodio;
 import screensync.api.model.DadosSerie;
 import screensync.api.service.ConsumoApi;
 import screensync.api.service.ConverteDados;
@@ -24,5 +25,8 @@ public class ScreensyncApplication implements CommandLineRunner {
 		ConverteDados conversor = new ConverteDados();
 		DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
 		System.out.println(dados);
+		json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=6585022c");
+		DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
+		System.out.println(dadosEpisodio);
 	}
 }
