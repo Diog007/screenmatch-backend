@@ -1,5 +1,6 @@
 package screensync.api.principal;
 
+import screensync.api.model.DadosEpisodio;
 import screensync.api.model.DadosSerie;
 import screensync.api.model.DadosTemporada;
 import screensync.api.service.ConsumoApi;
@@ -34,5 +35,8 @@ public class Principal {
 			temporadas.add(dadosTemporada);
 		}
 		temporadas.forEach(System.out::println);
+        
+
+        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
     }
 }
