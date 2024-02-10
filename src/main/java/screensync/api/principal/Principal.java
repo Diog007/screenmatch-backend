@@ -3,6 +3,7 @@ package screensync.api.principal;
 import screensync.api.model.DadosEpisodio;
 import screensync.api.model.DadosSerie;
 import screensync.api.model.DadosTemporada;
+import screensync.api.model.Episodio;
 import screensync.api.service.ConsumoApi;
 import screensync.api.service.ConverteDados;
 
@@ -50,5 +51,13 @@ public class Principal {
                 .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
                 .limit(5)
                 .forEach(System.out::println);
+
+        List<Episodio> episodios = temporadas.stream()
+                .flatMap(t -> t.episodios().stream()
+                        .map(d -> new Episodio(t.numero(), d))
+                ).collect(Collectors.toList());
+
+        episodios.forEach(System.out::println);
+
     }
 }
