@@ -8,7 +8,6 @@ import screensync.api.service.ConverteDados;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class Principal {
 
     private Scanner leitura = new Scanner(System.in);
@@ -17,35 +16,45 @@ public class Principal {
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=6585022c";
 
+    List<DadosSerie> dadosSeries = new ArrayList<>();
+
     public void exibeMenu() {
-        var menu = """
-                1 - Buscar séries
-                2 - Buscar episódios
-                
-                0 - Sair                                 
-                """;
+        var opcao = -1;
+        while(opcao != 0) {
+            var menu = """
+                    1 - Buscar séries
+                    2 - Buscar episódios
+                    3 - Listar Series Buscadas
+                                    
+                    0 - Sair                       
+                    """;
 
-        System.out.println(menu);
-        var opcao = leitura.nextInt();
-        leitura.nextLine();
+            System.out.println(menu);
+            opcao = leitura.nextInt();
+            leitura.nextLine();
 
-        switch (opcao) {
-            case 1:
-                buscarSerieWeb();
-                break;
-            case 2:
-                buscarEpisodioPorSerie();
-                break;
-            case 0:
-                System.out.println("Saindo...");
-                break;
-            default:
-                System.out.println("Opção inválida");
+            switch (opcao) {
+                case 1:
+                    buscarSerieWeb();
+                    break;
+                case 2:
+                    buscarEpisodioPorSerie();
+                    break;
+                case 3:
+                    listarSeriesBuscadas();
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
         }
     }
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
+        dadosSeries.add(dados);
         System.out.println(dados);
     }
 
@@ -68,4 +77,8 @@ public class Principal {
         }
         temporadas.forEach(System.out::println);
     }
+    private void listarSeriesBuscadas(){
+        dadosSeries.forEach(System.out::println);
+    }
+
 }
