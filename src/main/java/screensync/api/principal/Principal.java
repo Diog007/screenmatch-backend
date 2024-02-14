@@ -61,7 +61,9 @@ public class Principal {
     private DadosSerie getDadosSerie() {
         System.out.println("Digite o nome da série para busca");
         var nomeSerie = leitura.nextLine();
-        var json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") + API_KEY);
+        var test = ENDERECO + nomeSerie.replace(" ", "+") + API_KEY;
+        System.out.println(test);
+        var json = consumo.obterDados(test);
         DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
         return dados;
     }
