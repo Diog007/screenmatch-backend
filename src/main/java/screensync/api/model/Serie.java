@@ -1,9 +1,14 @@
 package screensync.api.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.OptionalDouble;
 
+@Getter
+@Setter
 public class Serie {
     private String titulo;
     private Integer totalTemporadas;
@@ -23,4 +28,15 @@ public class Serie {
         this.sinopse = dadosSerie.sinopse();
     }
 
+    @Override
+    public String toString() {
+        return
+                "genero=" + genero +
+                ", titulo='" + titulo + '\'' +
+                ", totalTemporadas=" + totalTemporadas +
+                ", avaliacao=" + avaliacao +
+                ", atores='" + atores + '\'' +
+                ", poster='" + poster + '\'' +
+                ", sinopse='" + sinopse + '\'';
+    }
 }

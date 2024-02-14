@@ -2,12 +2,16 @@ package screensync.api.principal;
 
 import screensync.api.model.DadosSerie;
 import screensync.api.model.DadosTemporada;
+import screensync.api.model.Serie;
 import screensync.api.service.ConsumoApi;
 import screensync.api.service.ConverteDados;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
 public class Principal {
 
     private Scanner leitura = new Scanner(System.in);
@@ -80,7 +84,14 @@ public class Principal {
         temporadas.forEach(System.out::println);
     }
     private void listarSeriesBuscadas(){
-        dadosSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = dadosSeries.stream()
+                        .map(d -> new Serie(d))
+                                .collect(Collectors.toList());
+
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
     }
 
 }
