@@ -1,19 +1,28 @@
 package screensync.api.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import screensync.api.service.ConsultaChatGPT;
 
 import java.util.OptionalDouble;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "series")
 public class Serie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
     private String titulo;
     private Integer totalTemporadas;
     private Double avaliacao;
+
+    @Enumerated(EnumType.STRING)
     private Categoria genero;
     private String atores;
     private String poster;
