@@ -1,8 +1,10 @@
 package screensync.api.principal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import screensync.api.model.DadosSerie;
 import screensync.api.model.DadosTemporada;
 import screensync.api.model.Serie;
+import screensync.api.repository.SerieRepository;
 import screensync.api.service.ConsumoApi;
 import screensync.api.service.ConverteDados;
 
@@ -21,6 +23,12 @@ public class Principal {
     private final String API_KEY = "&apikey=6585022c";
 
     List<DadosSerie> dadosSeries = new ArrayList<>();
+
+    private SerieRepository repository;
+
+    public Principal(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
@@ -58,7 +66,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+        //dadosSeries.add(dados);
+        repository.save(serie);
         System.out.println(dados);
     }
 

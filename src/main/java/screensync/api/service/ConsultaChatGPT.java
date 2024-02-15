@@ -5,12 +5,12 @@ import com.theokanning.openai.service.OpenAiService;
 
 public class ConsultaChatGPT {
     public static String obterTraducao(String texto) {
-        OpenAiService service = new OpenAiService("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");
+        OpenAiService service = new OpenAiService("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");
 
 
         CompletionRequest requisicao = CompletionRequest.builder()
                 .model("gpt-3.5-turbo-instruct")
-                .prompt("traduza para o português o texto e crie uma historia bem explicativa: " + texto)
+                .prompt("traduza para o português o texto: " + texto)
                 .maxTokens(1000)
                 .temperature(0.7)
                 .build();
