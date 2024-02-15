@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import screensync.api.service.ConsultaChatGPT;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.OptionalDouble;
 
 @Getter
@@ -27,6 +29,9 @@ public class Serie {
     private String atores;
     private String poster;
     private String sinopse;
+
+    @Transient
+    private List<Episodio> episodios = new ArrayList<>();
 
     public Serie(DadosSerie dadosSerie){
         this.titulo = dadosSerie.titulo();
