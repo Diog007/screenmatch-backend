@@ -1,7 +1,9 @@
 package screensync.api.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import screensync.api.service.ConsultaChatGPT;
 
@@ -12,6 +14,8 @@ import java.util.OptionalDouble;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "series")
 public class Serie {
 

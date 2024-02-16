@@ -69,7 +69,7 @@ public class Principal {
         Serie serie = new Serie(dados);
         //dadosSeries.add(dados);
         repository.save(serie);
-        System.out.println(dados);
+        System.out.println(serie);
     }
 
     private DadosSerie getDadosSerie() {
@@ -94,14 +94,9 @@ public class Principal {
         temporadas.forEach(System.out::println);
     }
     private void listarSeriesBuscadas(){
-        List<Serie> series = new ArrayList<>();
-        series = dadosSeries.stream()
-                        .map(d -> new Serie(d))
-                                .collect(Collectors.toList());
-
+        List<Serie> series = repository.findAll();
         series.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);
     }
-
 }
