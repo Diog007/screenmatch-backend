@@ -18,11 +18,9 @@ public class Principal {
     private final String API_KEY = "&apikey=6585022c";
 
     List<DadosSerie> dadosSeries = new ArrayList<>();
-
-    private SerieRepository repository;
-
     private List<Serie> series = new ArrayList<>();
 
+    private SerieRepository repository;
     public Principal(SerieRepository repository) {
         this.repository = repository;
     }
@@ -37,7 +35,8 @@ public class Principal {
                     4 - Buscar série por nome 
                     5 - Buscar por ator 
                     6 - top 5 Séries
-                    7 - Buscar séries por categoria         
+                    7 - Buscar séries por categoria  
+                    8 - Buscar séries pela quatidade de temporada e avaliacao       
                     0 - Sair                       
                     """;
 
@@ -67,6 +66,8 @@ public class Principal {
                 case 7:
                     buscarSeriesPorCategoria();
                     break;
+                case 8:
+                    filtrarSeriePorTemporada();
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -165,5 +166,18 @@ public class Principal {
         List<Serie> buscarSerieCategoria = repository.findByGenero(categoria);
         System.out.println("séries da categoria " + nomeGenero);
         buscarSerieCategoria.forEach(System.out::println);
+    }
+
+    private void filtrarSeriePorTemporada(){
+        System.out.println("Series com quantas temporadas: ");
+        var quantTemporada = leitura.nextInt();
+        System.out.println("Apartir de qual avaliacao gostaria as séries? ");
+        var avaliacao = leitura.nextDouble();
+        List<Serie> seriesEncontradas =
+                repository.findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual
+                        (quantTemporada, avaliacao);
+
+        seriesEncontradas.forEach(s ->
+                System.out.println("|" + s.getTitulo() + "| Temporadas: " + s.getTotalTemporadas() + "| - avaliacao: " + s.getAvaliacao()));
     }
 }
