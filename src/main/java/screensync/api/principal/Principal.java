@@ -1,10 +1,7 @@
 package screensync.api.principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import screensync.api.model.DadosSerie;
-import screensync.api.model.DadosTemporada;
-import screensync.api.model.Episodio;
-import screensync.api.model.Serie;
+import screensync.api.model.*;
 import screensync.api.repository.SerieRepository;
 import screensync.api.service.ConsumoApi;
 import screensync.api.service.ConverteDados;
@@ -39,7 +36,8 @@ public class Principal {
                     3 - Listar Series Buscadas
                     4 - Buscar série por nome 
                     5 - Buscar por ator 
-                    6 - top 5 Séries        
+                    6 - top 5 Séries
+                    7 - Buscar séries por categoria         
                     0 - Sair                       
                     """;
 
@@ -65,6 +63,9 @@ public class Principal {
                     break;
                 case 6:
                     buscarTop5eries();
+                    break;
+                case 7:
+                    buscarSeriesPorCategoria();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -157,4 +158,12 @@ public class Principal {
         serieTop.forEach(s -> System.out.println(s.getTitulo()+ " - avaliacao: " + s.getAvaliacao()));
     }
 
+    private void buscarSeriesPorCategoria() {
+        System.out.println("Deseja buscar serie de qual categoria/genero");
+        var nomeGenero = leitura.nextLine();
+        Categoria categoria = Categoria.fromPortugues(nomeGenero);
+        List<Serie> buscarSerieCategoria = repository.findByGenero(categoria);
+        System.out.println("séries da categoria " + nomeGenero);
+        buscarSerieCategoria.forEach(System.out::println);
+    }
 }
