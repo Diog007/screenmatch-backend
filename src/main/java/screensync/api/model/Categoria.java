@@ -8,7 +8,6 @@ public enum Categoria {
     CRIME("Crime", "Crime");
 
     private String categoriaOmdb;
-
     private String categoriaPortugues;
 
     Categoria(String categoriaOmdb, String categoriaPortugues){

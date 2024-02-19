@@ -173,9 +173,7 @@ public class Principal {
         var quantTemporada = leitura.nextInt();
         System.out.println("Apartir de qual avaliacao gostaria as séries? ");
         var avaliacao = leitura.nextDouble();
-        List<Serie> seriesEncontradas =
-                repository.findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual
-                        (quantTemporada, avaliacao);
+        List<Serie> seriesEncontradas = repository.seriesPorTemporadaEAvaliacao(quantTemporada, avaliacao);
 
         seriesEncontradas.forEach(s ->
                 System.out.println("|" + s.getTitulo() + "| Temporadas: " + s.getTotalTemporadas() + "| - avaliacao: " + s.getAvaliacao()));
