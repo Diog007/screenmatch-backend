@@ -3,6 +3,7 @@ package screensync.api.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import screensync.api.model.Categoria;
+import screensync.api.model.Episodio;
 import screensync.api.model.Serie;
 
 import java.util.List;
@@ -18,4 +19,7 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
     @Query("select s from Serie s WHERE s.totalTemporadas <= :totalTemporadas AND s.avaliacao >= :avaliacao")
     List<Serie> seriesPorTemporadaEAvaliacao(Integer totalTemporadas, Double avaliacao);
+
+    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE e.titulo ILIKE %:trechoEpisodio%")
+    List<Episodio> episodiosPorTrecho(String trechoEpisodio);
 }

@@ -32,12 +32,13 @@ public class Principal {
                     1 - Buscar séries
                     2 - Buscar episódios
                     3 - Listar Series Buscadas
-                    4 - Buscar série por nome 
-                    5 - Buscar por ator 
+                    4 - Buscar série por nome
+                    5 - Buscar por ator
                     6 - top 5 Séries
-                    7 - Buscar séries por categoria  
-                    8 - Buscar séries pela quatidade de temporada e avaliacao       
-                    0 - Sair                       
+                    7 - Buscar séries por categoria
+                    8 - Buscar séries pela quatidade de temporada e avaliacao
+                    9 - Buscar episodio por trecho
+                    0 - Sair                
                     """;
 
             System.out.println(menu);
@@ -68,6 +69,10 @@ public class Principal {
                     break;
                 case 8:
                     filtrarSeriePorTemporada();
+                    break;
+                case 9:
+                    buscarEpisodioPorTrecho();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -76,7 +81,6 @@ public class Principal {
             }
         }
     }
-
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
@@ -139,7 +143,6 @@ public class Principal {
         if(serieBuscada.isPresent()){
             System.out.println("Dados da série: ");
             serieBuscada.stream().forEach(System.out::println);
-
         }else {
             System.out.println("Série não encontrada!");
         }
@@ -147,7 +150,7 @@ public class Principal {
     private void buscarSeriesPorAtor(){
         System.out.println("Qual nome do ator para busca: ");
         var nomeAtor = leitura.nextLine();
-        System.out.println("Avalia~coes apartir de qual valor? ");
+        System.out.println("Avaliacoes apartir de qual valor? ");
         var avaliacao = leitura.nextDouble();
         List<Serie> seriesEncontradas = repository.findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(nomeAtor, avaliacao);
         System.out.println("Séries em que " + nomeAtor + " trabalhou: ");
@@ -169,7 +172,7 @@ public class Principal {
     }
 
     private void filtrarSeriePorTemporada(){
-        System.out.println("Series com quantas temporadas: ");
+        System.out.println("Series com até quantas temporadas: ");
         var quantTemporada = leitura.nextInt();
         System.out.println("Apartir de qual avaliacao gostaria as séries? ");
         var avaliacao = leitura.nextDouble();
@@ -177,5 +180,15 @@ public class Principal {
 
         seriesEncontradas.forEach(s ->
                 System.out.println("|" + s.getTitulo() + "| Temporadas: " + s.getTotalTemporadas() + "| - avaliacao: " + s.getAvaliacao()));
+    }
+
+    private void buscarEpisodioPorTrecho(){
+        System.out.println("Qual o nome do episodio para busca? ");
+        var trechoEpisodio = leitura.nextLine();
+        List<Episodio> episodiosEncontrado = repository.episodiosPorTrecho(trechoEpisodio);
+        episodiosEncontrado.forEach(e -> System.out.printf("Série: %s Temporada %s - Episodio %s - %s\n",
+                            e.getSerie().getTitulo(), e.getTemporada(),
+                            e.getNumeroEpisodio(), e.getTitulo()
+        ));
     }
 }
