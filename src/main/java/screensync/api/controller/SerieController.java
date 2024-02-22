@@ -18,4 +18,5 @@ public class SerieController {
     public List<SerieDTO> obterSeries(){
         return service.obterTodasAsSeries();
     }
+
 }

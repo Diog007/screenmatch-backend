@@ -1,9 +1,7 @@
 package screensync.api.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import screensync.api.model.Categoria;
+import screensync.api.model.Serie;
 
 public record SerieDTO(
                         Long id,
@@ -14,4 +12,5 @@ public record SerieDTO(
                         String atores,
                         String poster,
                         String sinopse) {
+
 }
