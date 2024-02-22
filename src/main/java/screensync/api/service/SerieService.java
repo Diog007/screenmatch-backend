@@ -18,6 +18,9 @@ public class SerieService {
     public List<SerieDTO> obterTodasAsSeries(){
         return converteDados(repository.findAll());
     }
+    public List<SerieDTO> obtertop5Series() {
+        return converteDados(repository.findTop5ByOrderByAvaliacaoDesc());
+    }
 
     private List<SerieDTO> converteDados(List<Serie> series){
         return series.stream()
