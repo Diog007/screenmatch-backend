@@ -138,6 +138,7 @@ public class Principal {
             System.out.println("Série não encontrada!");
         }
     }
+
     private void listarSeriesBuscadas(){
         series = repository.findAll();
         series.stream()
