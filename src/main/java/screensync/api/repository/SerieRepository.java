@@ -14,7 +14,6 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
     List<Serie> findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(String nomeAtor, Double avaliacao);
     List<Serie> findTop5ByOrderByAvaliacaoDesc();
     List<Serie> findByGenero(Categoria categoria);
-
     List<Serie> findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(Integer totalTemporadas, Double avaliacao);
 
     @Query("select s from Serie s WHERE s.totalTemporadas <= :totalTemporadas AND s.avaliacao >= :avaliacao")
@@ -28,4 +27,6 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
     @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie AND YEAR(e.dataLancamento) >= :anoLancamento ")
     List<Episodio> episodiosPorSerieEAno(Serie serie, int anoLancamento);
+
+    List<Serie> findTop5ByOrderByEpisodiosDataLancamentoDesc();
 }
