@@ -53,6 +53,11 @@ public class SerieService {
                 .map(EpisodioDTO::new)
                 .collect(Collectors.toList());
     }
+    public List<SerieDTO> obterSeriesPorCategoria(String nomeGenero) {
+        Categoria categoria = Categoria.fromPortugues(nomeGenero);
+        return converteDados(repository.findByGenero(categoria));
+    }
+
 
     private List<SerieDTO> converteDados(List<Serie> series){
         return series.stream()
