@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import screensync.api.dto.EpisodioDTO;
 import screensync.api.dto.SerieDTO;
+import screensync.api.model.Categoria;
 import screensync.api.model.Serie;
 import screensync.api.repository.SerieRepository;
 
@@ -46,11 +47,16 @@ public class SerieService {
         return null;
     }
 
+    public List<EpisodioDTO> obterTemporadasPorNumero(Long id, Long numero) {
+        var episodios = repository.obterEpisodiosPorTemporada(id, numero);
+        return episodios.stream()
+                .map(EpisodioDTO::new)
+                .collect(Collectors.toList());
+    }
 
     private List<SerieDTO> converteDados(List<Serie> series){
         return series.stream()
                 .map(s -> new SerieDTO(s.getId(), s.getTitulo(), s.getTotalTemporadas(), s.getAvaliacao(),
                         s.getGenero(), s.getAtores(), s.getPoster(), s.getSinopse())).collect(Collectors.toList());
     }
-
 }
